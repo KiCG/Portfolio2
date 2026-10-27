@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body class="is-locked">
+    <div class="cube-bg" aria-hidden="true"></div>
+    <header class="site-header">
+      <button type="button" class="site-header__home" data-nav-to="top">RYUSEI KISHI</button>
+      <nav class="site-header__nav">
+        <button type="button" class="site-header__link" data-nav-to="about">About</button>
+      </nav>
+    </header>
+    <section class="hero" data-hero>
+      <div class="hero__sticky">
+        <video
+          class="hero__video"
+          data-hero-video
+          src="/videos/hero.mp4"
+          muted
+          playsinline
+          preload="auto"
+          disablepictureinpicture
+          disableremoteplayback
+        ></video>
+        <div class="hero__overlay">
+          <p class="hero__scroll-hint">tap</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="placeholder">
+      <div class="about">
+
+        <div class="about-section">
+          <div class="about-sticky" data-reveal>
+          <h1>ABOUT</h1>
+          <div class="about-left">
+            <h2 class="about-middle">自分のいいなを起点に、<br>
+              使う人の視点で調整する</h2>
+          </div>
+          <div class="about-right">
+            <p>大学では3DCGとプログラミング、<br> 
+              そして研究室ではデザインを勉強しています。<br>
+              <br>
+              機能面を追い求める <strong>プログラミング</strong>、<br>
+              感性的な側面を追い求める <strong>アート</strong>、<br>
+              それらは互いに独立し、<br> 
+              交わることのない領分だと考えていましたが、<br>
+              それらを繋ぎ合わせたものこそが <br>
+              <strong>デザイン</strong>であると気づくことができました。<br>
+              <br>
+              それ以来、エンジニアとして、<br>
+              アーティストとしてだけではなく、 <br>
+              そのどちらの要素も併せ持った <br>
+              <strong>デザイナーの視点</strong> というものを大切にしています。 </p>
+          </div>
+          <!--
+          <div class="about-right">
+            <div class="sphere-grid">
+              <div class="flowing-sphere" data-sphere>
+                <div class="sphere-label">
+                  <span class="sphere-label__title">京都産業大学<br>情報理工学部</span>
+                  <span class="sphere-label__desc">入学</span>
+                </div>
+                <span class="sphere-year">2023-Present</span>
+              </div>
+              <div class="flowing-sphere" data-sphere>
+                <div class="sphere-label">
+                  <span class="sphere-label__title">電子計算機応用部</span>
+                  <span class="sphere-label__desc">CG班 チーフ</span>
+                </div>
+                <span class="sphere-year">2023-Present</span>
+              </div>
+              <div class="flowing-sphere" data-sphere>
+                <div class="sphere-label">
+                  <span class="sphere-label__title">伊藤慎一郎研究室</span>
+                  <span class="sphere-label__desc">インクルーシブデザイン <br> デジタルファブリケーション </span>
+                </div>
+                <span class="sphere-year">2025-Present</span>
+              </div>
+              <div class="flowing-sphere" data-sphere>
+                <div class="sphere-label">
+                  <span class="sphere-label__title">Kyoto Micro <br> Maker Faire 2026</span>
+                  <span class="sphere-label__desc">Emotional Monster Marker 出展 <br> (研究室プロジェクト)</span>
+                </div>
+                <span class="sphere-year">2026</span>
+              </div>
+            </div>
+          </div>
+          -->
+          </div>
+        </div>
+
+      </div>
+      <div class="history">
+        <div class="history-section">
+          <h1>HISTORY</h1>
+          <div class="history-left">
+            <div class="history-item" data-reveal-up>
+              <img src="/src/assets/history.svg" alt="history" />
+              <div class="history-item__text">
+                <h1>2023-Present</h1>
+                <h2>京都産業大学 情報理工学部 入学</h2>
+              </div>
+            </div>
+            <div class="history-item" data-reveal-up>
+              <img src="/src/assets/history.svg" alt="history" />
+              <div class="history-item__text">
+                <h1>2023-Present</h1>
+                <h2>電子計算機応用部 入部</h2>
+                <p>電子計算機応用部(通称 C.A.C)に入部。<br>
+                電子計算機応用部ではCG班に所属し、3DCGを勉強していました。<br>
+                3回生の時には、<b>CG班のチーフ</b>になり、モデリングコンテストの開催、採点を行いました。</p>
+              </div>
+            </div>
+            <div class="history-item" data-reveal-up>
+              <img src="/src/assets/history.svg" alt="history" />
+              <div class="history-item__text">
+                <h1>2025</h1>
+                <h2>KC3HACK 2025 参加</h2>
+                <p>このハッカソンでは、「カンサイ」というキーワードが与えられました。<br>
+                私たちのチームは、<strong>どんな画像やテキストでも粉物と判定するアプリ</strong> として、<strong> <br>
+                粉物マスター(鉄平ちゃん)</strong>を開発しました。 <br>
+                私はバックエンドの、Gemini API周りを担当しました。 <br>
+                <!-- これは私にとって、初めてのハッカソン、初めてのチーム開発経験となりました。<br>
+                そのため、右も左も分からない状態での開発となりましたが、アプリのアイデア出しや、 <br>
+                Gemini APIへのプロンプトなど、できることは積極的に取り組み、チームへ貢献することを意識して取り組みました。 -->
+                 </p>
+              </div>
+            </div>
+            <div class="history-item" data-reveal-up>
+              <img src="/src/assets/history.svg" alt="history" />
+              <div class="history-item__text">
+                <h1>2025</h1>
+                <h2>BitSummitGameJam 2025 参加</h2>
+                <p>BitSummitGameJamにはCGデザイナーとして参加しました。<br>
+                  私たちのチームは、<strong>ダンスダンスエヴォリューション</strong>のコントローラーで操作する、 <br>
+                  temple run likeな<strong>ランゲーム</strong>として、<strong>Phantom Mirror</strong>を開発しました。<br>
+                  担当した範囲として、本棚や机などのプロップの作成と、<br>
+                  2Dデザイナーからいただいた 3面図を元に、<br>
+                  敵キャラクターのモデリングとアニメーションを作成しました。
+                 </p>
+              </div>
+            </div>
+            <div class="history-item" data-reveal-up>
+              <img src="/src/assets/history.svg" alt="history" />
+              <div class="history-item__text">
+                <h1>2025</h1>
+                <h2>ボカコレ 2025 夏 参加</h2>
+                <p>ボカロコレクション（通称ボカコレ）に参加しました。<br>
+                  私はCGを担当し、MVで使われているCG素材を作成しました。<br>
+                  
+                  <!-- 参加したメンバーは、全員C.A.Cのメンバーで、<br>
+                  イラスト3人、音楽1人、映像1人、CG1人の、<br>
+                  合計6人でチームを組み、MV制作を行いました。<br>
+                  私はCGを担当し、チームメンバーのアイデアを、<br>
+                  形にするということを行いました。<br>
+                  その際に、フィードバックと改善のイテレータを、<br>
+                  高速で回す必要がありました。<br>
+                  そのため、アセットの配置やアニメーションを<br>
+                  ある程度ノードで管理し、パラメータを変えるだけで<br>
+                  高速に修正ができるように設計しました。 -->
+                  </p>
+              </div>
+            </div>
+            <div class="history-item" data-reveal-up>
+              <img src="/src/assets/history.svg" alt="history" />
+              <div class="history-item__text">
+                <h1>2025-Present</h1>
+                <h2>伊藤慎一郎研究室 配属</h2>
+                <p>私は現在、伊藤慎一郎研究室（通称伊藤研）に所属しています。<br>
+                  伊藤研は、 <b>デザイン</b>や<b>デジタルファブリケーション</b>をキーワードとしており、<br>
+                  デザインの方法やプロセス、考え方について学びました。<br>
+                  <br>
+                  現在は<b>漆の経年変化シミュレーション</b>についての研究を行っています。
+                  <!-- 3回生の秋学期に、伊藤慎一郎研究室（通称伊藤研）に配属されました。<br>
+                  伊藤研は、デザインやデジタルファブリケーションをキーワードとしています。<br>
+                  私は3DCGに興味があることと、ビジュアルを作ることにも関心があったので、<br>
+                  伊藤研を希望しました。<br> -->
+                  <!-- <br>
+                  伊藤研では、デザインの方法、プロセス、考え方について学びました。<br>
+                  見た目や機能としての成果物に拘ってきた私にとって、<br>
+                  デザインプロセスを通じて、誰に、何のためにといったことを<br>
+                  考えるのはとても新鮮でした。<br>
+                  特に、ユーザーシナリオを意識したアプローチは、<br>
+                  私が大切にしている<strong>自分のいいなを起点に、使う人の視点で調整する</strong> <br>
+                  という考え方に、強く作用しています。 <br> -->
+                </p>
+              </div>
+            </div>
+            <div class="history-item" data-reveal-up>
+              <img src="/src/assets/history.svg" alt="history" />
+              <div class="history-item__text">
+                <h1>2025</h1>
+                <h2>TeraCoder 2025 CyberAgent賞 受賞</h2>
+                <p>京都産業大学で開催された、学内競技プログラミングコンテストである<br>
+                  TeraCoder 2025にて、CyberAgent賞を受賞しました。<br>
+                  <!-- 私はプログラミングの勉強の一環として、AtCoderに参加していました。<br>
+                  レートは500程度と、基本的なアルゴリズムを理解している程度ですが、<br>
+                  地道に勉強を続けてきたおかげで、学内コンテストにて受賞できたのだと思います。 -->
+                </p>
+              </div>
+            </div>
+            <div class="history-item-last" data-reveal-up>
+              <img src="/src/assets/history-last.svg" alt="history" />
+              <div class="history-item__text">
+                <h1>2026</h1>
+                <h2>Kyoto Micro Maker Faire 2026 出展</h2>
+                伊藤研で制作したプロジェクトを、<b>Kyoto Micro Maker Faire 2026</b>にて出展させていただきました。 <br>
+                私が提案したプロジェクトは、<b>Emotional-Monster-Marker</b>というタイトルで、<br>
+                <b>感情を入力</b>すると、AIが<b>オリジナルの感情モンスターを作成</b>し、<b>自動で3Dプリント</b>される体験型の遊びです。<br>
+                このプロジェクトは、「感情」を伝えることや表現することが苦手な子供でも、簡単な入力だけで <br>
+                <b>感情をモンスターとして可視化・可触化</b>できるようにするという目的の元で制作しました。
+                <!-- このプロジェクトは、3回生秋の特別研究1にて、<strong>インクルーシブな感覚遊び・休みの提案</strong> <br>
+                というテーマが与えられたことから始まります。<br>
+                太陽が丘公園の <strong>インクルーシブDAY</strong> にて、フィールドリサーチを3回ほど行い -->
+                <p>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="history-right">
+            <div class="history-img"></div>
+            <div class="history-img">
+              <img src="/src/assets/castle.png" alt="">
+            </div>
+            <div class="history-img">
+              <img src="src/assets/judge_app.png" alt="">
+            </div>
+            <div class="history-img" data-carousel>
+              <div class="work-card__track">
+                <img src="src/assets/work/PhantomMirror.png" alt="" class="work-card__slide is-active">
+                <img src="src/assets/work/PhantomMirror_enemy.png" alt="" class="work-card__slide">
+                <video src="src/assets/work/PhantomMirror_enemy_animation.mp4" autoplay muted loop playsinline alt="" class="work-card__slide"></video>
+                <!-- 追加例:
+                <img src="src/assets/inclusive_02.png" alt="" class="work-card__slide">
+                <img src="src/assets/inclusive_03.png" alt="" class="work-card__slide">
+                -->
+              </div>
+              <button type="button" class="work-card__nav work-card__nav--prev" data-dir="-1" aria-label="前へ">‹</button>
+              <button type="button" class="work-card__nav work-card__nav--next" data-dir="1" aria-label="次へ">›</button>
+              <div class="work-card__dots" data-dots></div>
+            </div>
+            <div class="history-img" data-carousel>
+              <div class="work-card__track">
+                <img src="src/assets/work/vocacolle.png" alt="" class="work-card__slide is-active">
+                <video src="src/assets/work/corridor.mp4" class="work-card__slide" autoplay muted loop playsinline></video>
+                <video src="src/assets/work/puzzle.mp4" class="work-card__slide" autoplay muted loop playsinline></video>
+                <!-- 追加例:
+                <img src="src/assets/inclusive_02.png" alt="" class="work-card__slide">
+                <img src="src/assets/inclusive_03.png" alt="" class="work-card__slide">
+                -->
+              </div>
+              <button type="button" class="work-card__nav work-card__nav--prev" data-dir="-1" aria-label="前へ">‹</button>
+              <button type="button" class="work-card__nav work-card__nav--next" data-dir="1" aria-label="次へ">›</button>
+              <div class="work-card__dots" data-dots></div>
+            </div>
+            <div class="history-img" data-carousel>
+              <div class="work-card__track">
+                <img src="src/assets/inclusive.png" alt="" class="work-card__slide is-active">
+                <img src="src/assets/work/emotional-monster-maker/image03.png" alt="" class="work-card__slide">
+                <img src="src/assets/work/emotional-monster-maker/image04.png" alt="" class="work-card__slide">
+                <!-- 追加例:
+                <img src="src/assets/inclusive_02.png" alt="" class="work-card__slide">
+                <img src="src/assets/inclusive_03.png" alt="" class="work-card__slide">
+                -->
+              </div>
+              <button type="button" class="work-card__nav work-card__nav--prev" data-dir="-1" aria-label="前へ">‹</button>
+              <button type="button" class="work-card__nav work-card__nav--next" data-dir="1" aria-label="次へ">›</button>
+              <div class="work-card__dots" data-dots></div>
+            </div>
+            <div class="history-img"></div>
+            <div class="history-img" data-carousel>
+              <div class="work-card__track">
+                <img src="src/assets/emm.png" alt="" class="work-card__slide is-active">
+                <img src="src/assets/work/emotional-monster-maker/image17.png" alt="" class="work-card__slide">
+                <img src="src/assets/work/emotional-monster-maker/image19.png" alt="" class="work-card__slide">
+                <img src="src/assets/work/emotional-monster-maker/image18.png" alt="" class="work-card__slide">
+                <!-- 追加例:
+                <img src="src/assets/inclusive_02.png" alt="" class="work-card__slide">
+                <img src="src/assets/inclusive_03.png" alt="" class="work-card__slide">
+                -->
+              </div>
+              <button type="button" class="work-card__nav work-card__nav--prev" data-dir="-1" aria-label="前へ">‹</button>
+              <button type="button" class="work-card__nav work-card__nav--next" data-dir="1" aria-label="次へ">›</button>
+              <div class="work-card__dots" data-dots></div>
+            </div>
+            
+            
+          </div>
+        </div>
+      </div>
+      <div class="work">
+        <div class="work-section">
+          <div class="work-sticky">
+          <h1>WORK</h1>
+          <div class="work-left">
+            <div class="work-skill">
+              <img src="src/assets/SkillStack.svg" alt="">
+            </div>
+          </div>
+          <div class="work-right">
+            <p>私が主に利用してきた技術領域です。<br>
+              3DCG、デジタルファブリケーション、プログラミングの3つです。<br>
+              これらを1つだけ用いて作品を作ることも多くありますが、<br>
+              いくつかを組み合わせたプロジェクトを制作することもあります。<br>
+              <br>
+              特に、Maker Faire Kyoto 2026にて出展した、<br>
+              Emotional Monster Markerは、3つの領域を組み合わせた<br>
+              作品であり、もっとも私らしさが、学んできたことが表れた作品<br>
+              だと感じております。
+            </p>
+
+          </div>
+          </div>
+        </div>
+
+        <div class="work-category work-category--pickup">
+          <h2 class="work-category__title">PICK UP WORKS</h2>
+          <div class="work-grid">
+            <article class="work-card" data-carousel>
+              <div class="work-card__media">
+                <div class="work-card__track">
+                  <video src="src/assets/work/emotional-monster-maker/emm_demo.mp4" class="work-card__slide is-active" autoplay muted loop playsinline></video>
+                  <img src="src/assets/work/emotional-monster-maker/image18.png" alt="" class="work-card__slide">
+                  <video src="src/assets/work/emotional-monster-maker/hologram_shader.mp4" class="work-card__slide" autoplay muted loop playsinline></video>
+                  
+                </div>
+                <button type="button" class="work-card__nav work-card__nav--prev" data-dir="-1" aria-label="前へ">‹</button>
+                <button type="button" class="work-card__nav work-card__nav--next" data-dir="1" aria-label="次へ">›</button>
+                <div class="work-card__dots" data-dots></div>
+              </div>
+              <h3 class="work-card__title">Emotional Monster Maker</h3>
+              <p class="work-card__caption"><b>ユーザーの感情入力から Gemini API でモンスターのコンセプトを生成し、Tripo API で 3D 化、さらに 3Dプリンタで物理出力するインタラクティブ作品</b></p>
+              <p class="work-card__caption">Python / JavaScript / Gemini API / Tripo API / Octo Print / Blender / 3Dプリンタ / 研究室プロジェクト / Kyoto Micro Maker Faire 2026</p>
+              <a href="https://ryuseikishi.vercel.app/works/emotional-monster-maker" target="_blank" rel="noopener noreferrer" class="work-card__detail">詳細はこちら</a>
+            </article>
+          </div>
+        </div>
+
+        <div class="work-category">
+          <h2 class="work-category__title">3DCG WORKS</h2>
+          <div class="work-grid">
+            <article class="work-card" data-carousel>
+              <div class="work-card__media">
+                <div class="work-card__track">
+                  <img src="src/assets/work/castle.png" alt="" class="work-card__slide is-active">
+                </div>
+                <button type="button" class="work-card__nav work-card__nav--prev" data-dir="-1" aria-label="前へ">‹</button>
+                <button type="button" class="work-card__nav work-card__nav--next" data-dir="1" aria-label="次へ">›</button>
+                <div class="work-card__dots" data-dots></div>
+              </div>
+              <h3 class="work-card__title">雪原の城</h3>
+              <p class="work-card__caption">Blender / 個人制作</p>
+            </article>
+
+            <article class="work-card" data-carousel>
+              <div class="work-card__media">
+                <div class="work-card__track">
+                  <img src="src/assets/work/geoanim.png" alt="" class="work-card__slide is-active">
+                  <img src="src/assets/work/geoanim_color.png" alt="" class="work-card__slide">
+                  <img src="src/assets/work/geoanim_solid.png" alt="" class="work-card__slide">
+                </div>
+                <button type="button" class="work-card__nav work-card__nav--prev" data-dir="-1" aria-label="前へ">‹</button>
+                <button type="button" class="work-card__nav work-card__nav--next" data-dir="1" aria-label="次へ">›</button>
+                <div class="work-card__dots" data-dots></div>
+              </div>
+              <h3 class="work-card__title">色の迷宮</h3>
+              <p class="work-card__caption">Blender / 個人制作</p>
+            </article>
+
+            <article class="work-card" data-carousel>
+              <div class="work-card__media">
+                <div class="work-card__track">
+                  <img src="src/assets/work/cake.png" alt="" class="work-card__slide is-active">
+                  <img src="src/assets/work/cake_solid.png" alt="" class="work-card__slide">
+                  
+                </div>
+                <button type="button" class="work-card__nav work-card__nav--prev" data-dir="-1" aria-label="前へ">‹</button>
+                <button type="button" class="work-card__nav work-card__nav--next" data-dir="1" aria-label="次へ">›</button>
+                <div class="work-card__dots" data-dots></div>
+              </div>
+              <h3 class="work-card__title">バレンタインケーキ</h3>
+              <p class="work-card__caption">Blender / 個人制作</p>
+            </article>
+
+            <article class="work-card" data-carousel>
+              <div class="work-card__media">
+                <div class="work-card__track">
+                  <video src="src/assets/work/mountain_gacha.mp4" class="work-card__slide is-active" autoplay muted loop playsinline></video>
+                  <img src="src/assets/work/mountain_gacha.png" alt="" class="work-card__slide">
+                  <img src="src/assets/work/mountain_gacha_solid.png" alt="" class="work-card__slide">
+                </div>
+                <button type="button" class="work-card__nav work-card__nav--prev" data-dir="-1" aria-label="前へ">‹</button>
+                <button type="button" class="work-card__nav work-card__nav--next" data-dir="1" aria-label="次へ">›</button>
+                <div class="work-card__dots" data-dots></div>
+              </div>
+              <h3 class="work-card__title">K-step Getter</h3>
+              <p class="work-card__caption"><b>階段を登ってガチャを引くというコンセプトの、ガチャ演出映像</b></p>
+              <p class="work-card__caption">Blender / DaVinci Resolve / ガチャ演出 / チーム制作</p>
+            </article>
+
+            <article class="work-card" data-carousel>
+              <div class="work-card__media">
+                <div class="work-card__track">
+                  <img src="src/assets/work/vocacolle.png" alt="" class="work-card__slide is-active">
+                  <video src="src/assets/work/corridor.mp4" class="work-card__slide" autoplay muted loop playsinline></video>
+                  <video src="src/assets/work/puzzle.mp4" class="work-card__slide" autoplay muted loop playsinline></video>
+                  
+                </div>
+                <button type="button" class="work-card__nav work-card__nav--prev" data-dir="-1" aria-label="前へ">‹</button>
+                <button type="button" class="work-card__nav work-card__nav--next" data-dir="1" aria-label="次へ">›</button>
+                <div class="work-card__dots" data-dots></div>
+              </div>
+              <h3 class="work-card__title">まるで檻のような</h3>
+              <p class="work-card__caption">Blender / MV制作 / チーム制作</p>
+            </article>
+
+            <article class="work-card" data-carousel>
+              <div class="work-card__media">
+                <div class="work-card__track">
+                  <img src="src/assets/work/PhantomMirror.png" alt="" class="work-card__slide is-active">
+                  <img src="src/assets/work/PhantomMirror_enemy.png" alt="" class="work-card__slide">
+                  <video src="src/assets/work/PhantomMirror_enemy_animation.mp4" autoplay muted loop playsinline alt="" class="work-card__slide"></video>
+                </div>
+                <button type="button" class="work-card__nav work-card__nav--prev" data-dir="-1" aria-label="前へ">‹</button>
+                <button type="button" class="work-card__nav work-card__nav--next" data-dir="1" aria-label="次へ">›</button>
+                <div class="work-card__dots" data-dots></div>
+              </div>
+              <h3 class="work-card__title">Phantom Mirror</h3>
+              <p class="work-card__caption">Blender / ゲーム制作 / チーム制作 /  BSGJ2025</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="work-category">
+          <h2 class="work-category__title">PROGRAMMING WORKS</h2>
+          <div class="work-grid">
+            <article class="work-card" data-carousel data-href="https://github.com/kc3hack/2025_14">
+              <div class="work-card__media">
+                <div class="work-card__track">
+                  <img src="src/assets/work/judge_app.png" alt="" class="work-card__slide is-active">
+                </div>
+                <button type="button" class="work-card__nav work-card__nav--prev" data-dir="-1" aria-label="前へ">‹</button>
+                <button type="button" class="work-card__nav work-card__nav--next" data-dir="1" aria-label="次へ">›</button>
+                <div class="work-card__dots" data-dots></div>
+              </div>
+              <h3 class="work-card__title">粉物マスター 鉄平ちゃん</h3>
+              <p class="work-card__caption"><b>どんなものでも粉物だと言い張るジョークアプリ</b></p>
+              <p class="work-card__caption">TypeScript / Python / Gemini API / チーム制作 / KC3HACK2025</p>
+            </article>
+
+            <article class="work-card" data-carousel data-href="https://github.com/KiCG/ProjectBundler">
+              <div class="work-card__media">
+                <div class="work-card__track">
+                  <img src="src/assets/work/Project_Bundler.png" alt="" class="work-card__slide is-active">
+                </div>
+                <button type="button" class="work-card__nav work-card__nav--prev" data-dir="-1" aria-label="前へ">‹</button>
+                <button type="button" class="work-card__nav work-card__nav--next" data-dir="1" aria-label="次へ">›</button>
+                <div class="work-card__dots" data-dots></div>
+              </div>
+              <h3 class="work-card__title">Project Bundler</h3>
+              <p class="work-card__caption"><b>使用されている外部テクスチャファイルをパッキングし、共有するためのBlenderアドオン</b></p>
+              <p class="work-card__caption">Python / Blender API / Addon / 個人制作</p>
+            </article>
+
+            <article class="work-card" data-carousel data-href="https://github.com/KiCG/Ichigo-Ichie">
+              <div class="work-card__media">
+                <div class="work-card__track">
+                  <img src="src/assets/work/Ichigo_Ichie.png" alt="" class="work-card__slide is-active">
+                </div>
+                <button type="button" class="work-card__nav work-card__nav--prev" data-dir="-1" aria-label="前へ">‹</button>
+                <button type="button" class="work-card__nav work-card__nav--next" data-dir="1" aria-label="次へ">›</button>
+                <div class="work-card__dots" data-dots></div>
+              </div>
+              <h3 class="work-card__title">一期一会</h3>
+              <p class="work-card__caption"><b>過去に写真を撮った同じ場所へ再び訪れ、同じ風景をカメラで捉えたときだけ、過去の自分が残したメッセージが閲覧できる思い出追体験アプリ。</b></p>
+              <p class="work-card__caption">TypeScript / Gemini API / 個人制作</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="work-category">
+          <h2 class="work-category__title">DIGITAL FABRICATION WORKS</h2>
+          <div class="work-grid">
+            <article class="work-card" data-carousel>
+              <div class="work-card__media">
+                <div class="work-card__track">
+                  <img src="src/assets/work/pumpkin.png" alt="" class="work-card__slide is-active">
+                </div>
+                <button type="button" class="work-card__nav work-card__nav--prev" data-dir="-1" aria-label="前へ">‹</button>
+                <button type="button" class="work-card__nav work-card__nav--next" data-dir="1" aria-label="次へ">›</button>
+                <div class="work-card__dots" data-dots></div>
+              </div>
+              <h3 class="work-card__title">ジャック・オ・ランタン</h3>
+              <p class="work-card__caption">Blender / 3Dプリンタ / 個人制作</p>
+            </article>
+
+            <article class="work-card" data-carousel>
+              <div class="work-card__media">
+                <div class="work-card__track">
+                  <img src="src/assets/work/newyear.png" alt="" class="work-card__slide is-active">
+                  <img src="src/assets/work/newyear02.png" alt="" class="work-card__slide">
+                </div>
+                <button type="button" class="work-card__nav work-card__nav--prev" data-dir="-1" aria-label="前へ">‹</button>
+                <button type="button" class="work-card__nav work-card__nav--next" data-dir="1" aria-label="次へ">›</button>
+                <div class="work-card__dots" data-dots></div>
+              </div>
+              <h3 class="work-card__title">三景</h3>
+              <p class="work-card__caption">Blender / レーザーカッター / 個人制作</p>
+            </article>
+
+            <article class="work-card" data-carousel>
+              <div class="work-card__media">
+                <div class="work-card__track">
+                  <img src="src/assets/work/lantern.png" alt="" class="work-card__slide is-active">
+                  <img src="src/assets/work/lantern02.png" alt="" class="work-card__slide">
+                  <video src="src/assets/work/lantern03.mp4" class="work-card__slide" autoplay muted loop playsinline></video>
+                </div>
+                <button type="button" class="work-card__nav work-card__nav--prev" data-dir="-1" aria-label="前へ">‹</button>
+                <button type="button" class="work-card__nav work-card__nav--next" data-dir="1" aria-label="次へ">›</button>
+                <div class="work-card__dots" data-dots></div>
+              </div>
+              <h3 class="work-card__title">灯篭ランタン</h3>
+              <p class="work-card__caption">Blender / 3Dプリンタ / レーザーカッター / UVプリンタ / 個人制作</p>
+            </article>
+          </div>
+        </div>
+      </div>
+      <div class="contact">
+        <div class="contact-section">
+          <h1>CONTACT</h1>
+          <div class="contact-middle">
+            <h3>Under Construction...</h3>
+            <!-- <h3>Web, 3DCG, デジタルファブリケーションを用いた<br>
+            作品制作を行なっています。<br>
+            ご興味がございましたら、是非お気軽に連絡ください。</h3> -->
+          </div>
+        </div>
+      </div>
+      <!-- <p data-reveal>次のセクション（これから作ります）</p> -->
+    </section>
+
+    <div class="cursor is-hint" aria-hidden="true">
+      <span class="cursor__hint">CLICK TO FALL</span>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
