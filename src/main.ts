@@ -20,8 +20,17 @@ if (loader) {
     .map((k) => frameModules[k]);
 
   if (frameEl && frameUrls.length > 0) {
-    const preload = new Image();
-    preload.onload = () => {
+    const preloadAll = frameUrls.map(
+      (url) =>
+        new Promise<void>((resolve) => {
+          const img = new Image();
+          img.onload = () => resolve();
+          img.onerror = () => resolve();
+          img.src = url;
+        }),
+    );
+
+    Promise.all(preloadAll).then(() => {
       frameEl.src = frameUrls[0];
       frameEl.classList.add('is-ready');
       let i = 0;
@@ -34,8 +43,7 @@ if (loader) {
         () => clearInterval(intervalId),
         { once: true },
       );
-    };
-    preload.src = frameUrls[0];
+    });
   }
 
   const heroVideoEl = document.querySelector<HTMLVideoElement>('[data-hero-video]');
