@@ -9,12 +9,13 @@ type Cube = {
 };
 
 export function mountCubeBackground(container: HTMLElement) {
+  const isMobile = window.innerWidth < 768;
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 100);
   camera.position.z = 15;
 
-  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: !isMobile });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
   container.appendChild(renderer.domElement);
 
   const BASE_OPACITY = 0.4;
@@ -27,13 +28,33 @@ export function mountCubeBackground(container: HTMLElement) {
 
   const geometry = new THREE.BoxGeometry(1, 1, 1);
   const cubes: Cube[] = [];
-  const COUNT = 24;
+  const COUNT = isMobile ? 10 : 24;
   const Y_RANGE = 20;
+
+  let xRange = 24;
+  const computeXRange = () => {
+    const vFOV = (camera.fov * Math.PI) / 180;
+    const distance = camera.position.z - -2;
+    const visibleHeight = 2 * Math.tan(vFOV / 2) * distance;
+    const visibleWidth = visibleHeight * camera.aspect;
+    xRange = visibleWidth * 1.0;
+  };
+
+  const resize = () => {
+    const w = container.clientWidth;
+    const h = container.clientHeight;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    computeXRange();
+  };
+  resize();
+  window.addEventListener('resize', resize);
 
   for (let i = 0; i < COUNT; i++) {
     const cubeMaterial = material.clone();
     const mesh = new THREE.Mesh(geometry, cubeMaterial);
-    mesh.position.x = (Math.random() - 0.5) * 24;
+    mesh.position.x = (Math.random() - 0.5) * xRange;
     mesh.position.y = (Math.random() - 0.5) * Y_RANGE;
     mesh.position.z = (Math.random() - 0.5) * 8 - 2;
     const scale = 0.5 + Math.random() * 1.2;
@@ -48,16 +69,6 @@ export function mountCubeBackground(container: HTMLElement) {
       riseSpeed: 0.01 + Math.random() * 0.015,
     });
   }
-
-  const resize = () => {
-    const w = container.clientWidth;
-    const h = container.clientHeight;
-    renderer.setSize(w, h, false);
-    camera.aspect = w / h;
-    camera.updateProjectionMatrix();
-  };
-  resize();
-  window.addEventListener('resize', resize);
 
   let lastScrollY = window.scrollY;
   let scrollDelta = 0;
@@ -115,10 +126,10 @@ export function mountCubeBackground(container: HTMLElement) {
 
       if (c.mesh.position.y > topY) {
         c.mesh.position.y = bottomY;
-        c.mesh.position.x = (Math.random() - 0.5) * 24;
+        c.mesh.position.x = (Math.random() - 0.5) * xRange;
       } else if (c.mesh.position.y < bottomY) {
         c.mesh.position.y = topY;
-        c.mesh.position.x = (Math.random() - 0.5) * 24;
+        c.mesh.position.x = (Math.random() - 0.5) * xRange;
       }
     }
     renderer.render(scene, camera);

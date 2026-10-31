@@ -220,6 +220,7 @@ body.theme-dark .site-header__link:hover {
   position: relative;
   width: 100%;
   height: var(--hero-scroll-length);
+  background: #ff0000;
 }
 
 .hero__sticky {
@@ -453,7 +454,7 @@ h1 {
   opacity: 1;
 }
 
-.history-right img {
+.history-img > img {
   display: block;
   width: 100%;
   height: 100%;
@@ -500,7 +501,7 @@ h1 {
   gap: 1rem;
 }
 
-.history-item-last img {
+.history-item-last > img {
   display: block;
   width: 72px;
   height: auto;
@@ -578,7 +579,7 @@ h1 {
 .work-right {
   width: calc(50% - 1rem);
   text-align: left;
-  padding-top: 125px
+  padding-top: 50px
 }
 
 .work-category {
@@ -778,3 +779,189 @@ h1 {
 .contact-middle {
   text-align: middle;
 }
+
+/* ===================================================================
+   モバイル対応 (〜767px)
+   =================================================================== */
+@media (max-width: 767px) {
+  /* 共通: 大見出し */
+  h1 {
+    font-size: 48px;
+    margin-bottom: 0;
+  }
+
+  p {
+    /* font-size: clamp(8, calc(13 / 375 * 100vw)); */
+    font-size: calc(13 / 375 * 100vw);
+  }
+
+  /* ヘッダー */
+  .site-header {
+    padding: 1rem;
+  }
+  .site-header__home {
+    font-size: 20px;
+    padding-left: 0;
+  }
+
+  /* ローダー画像を縮小 */
+  .loader__frame {
+    width: 160px;
+    height: 160px;
+  }
+
+  /* 立方体3D背景: モバイルでは JS 側で立方体数と pixelRatio を自動で下げている */
+
+  /* === ABOUT === */
+  .about {
+    padding-top: 120px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .about-section {
+    min-height: 1600px;
+    margin-bottom: 100px;
+  }
+  .about-sticky {
+    position: sticky;
+    top: 70px;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .about-left,
+  .about-right {
+    width: 100%;
+    /* text-align: left; */
+  }
+  .about-middle {
+    padding: 40px 0;
+    font-size: 1.4rem;
+    text-align: left;
+  }
+
+  /* === HISTORY === */
+  .history {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .history-section {
+    max-height: none;
+    flex-direction: column;
+    margin-bottom: 100px;
+  }
+  .history-section > h1 {
+    position: sticky;
+    top: 70px;
+  }
+  .history-left {
+    width: 100%;
+    padding-left: 0;
+    padding-top: 20px;
+  }
+  .history-right {
+    display: none; /* 画像列は空になるので非表示 */
+  }
+  .history-item,
+  .history-item-last {
+    height: auto;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  /* 縦線マーカー (history.svg) を非表示 */
+  .history-item > img,
+  .history-item-last > img {
+    display: none;
+  }
+  .history-item__text h1 {
+    font-size: 32px;
+    letter-spacing: 2px;
+    margin-top: 50px;
+  }
+
+  .history-item__text h2 {
+    font-size: 20px;
+    margin-top: 5px;
+  }
+
+  .history-item__text p {
+    padding-bottom: 10px;
+  }
+
+  /* テキスト下に移動した画像 */
+  .history-item .history-img,
+  .history-item-last .history-img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    padding: 0;
+  }
+  /* 空の history-img は表示しない */
+  .history-item .history-img:empty,
+  .history-item-last .history-img:empty {
+    display: none;
+  }
+  /* カルーセル対応: アスペクト比を保つ */
+  .history-item .history-img[data-carousel],
+  .history-item-last .history-img[data-carousel] {
+    position: relative;
+  }
+
+  /* === WORK === */
+  .work {
+    padding-top: 60px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-bottom: 100px;
+  }
+  .work-section {
+    min-height: 1000px;
+    padding-top: 0;
+    padding-bottom: 50px;
+  }
+  .work-sticky {
+    position: sticky;
+    top: 70px;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .work-left,
+  .work-right {
+    width: 100%;
+  }
+  .work-left {
+    padding: 0;
+  }
+
+  /* カテゴリ */
+  .work-category {
+    padding: 40px 0 0;
+    margin-bottom: 24px;
+  }
+  .work-category__title {
+    font-size: 24px;
+    padding-right: 10px;
+  }
+
+  /* カードを1カラムに */
+  .work-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 20px;
+  }
+
+  /* PICK UP WORKSのカード文字 */
+  .work-category--pickup .work-card__title {
+    font-size: 20px;
+  }
+  .work-category--pickup .work-card__caption {
+    font-size: 14px;
+  }
+
+  /* === CONTACT === */
+  .contact {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+

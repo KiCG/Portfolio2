@@ -7,6 +7,17 @@ if ('scrollRestoration' in history) {
 }
 window.scrollTo(0, 0);
 
+if (window.innerWidth < 768) {
+  const items = document.querySelectorAll<HTMLElement>(
+    '.history-left > .history-item, .history-left > .history-item-last',
+  );
+  const imgs = document.querySelectorAll<HTMLElement>('.history-right > .history-img');
+  items.forEach((item, i) => {
+    const img = imgs[i];
+    if (img) item.appendChild(img);
+  });
+}
+
 const loader = document.querySelector<HTMLElement>('[data-loader]');
 if (loader) {
   const frameEl = loader.querySelector<HTMLImageElement>('[data-loader-frame]');
@@ -275,8 +286,14 @@ async function typewriteInto(target: HTMLElement, html: string, speed = 25) {
   }
 }
 
+function reserveHeight(target: HTMLElement) {
+  const h = target.offsetHeight;
+  if (h > 0) target.style.minHeight = `${h}px`;
+}
+
 function initTypewriter(target: HTMLElement, delayMs = 1500, speed = 25, threshold = 0.3) {
   const originalHTML = target.innerHTML;
+  reserveHeight(target);
   target.innerHTML = '';
   let typed = false;
 
@@ -299,6 +316,7 @@ const aboutRight = document.querySelector<HTMLParagraphElement>('.about-right p'
 const aboutSticky = document.querySelector<HTMLElement>('.about-sticky');
 if (aboutRight && aboutSticky) {
   const originalHTML = aboutRight.innerHTML;
+  reserveHeight(aboutRight);
   aboutRight.innerHTML = '';
   let typed = false;
 
