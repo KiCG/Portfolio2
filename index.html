@@ -30,15 +30,14 @@
         <video
           class="hero__video"
           data-hero-video
+          data-src-mobile="/videos/hero_light.mp4"
+          data-src-desktop="/videos/hero.mp4"
           muted
           playsinline
           preload="auto"
           disablepictureinpicture
           disableremoteplayback
-        >
-          <source src="/videos/hero_light.mp4" type="video/mp4" media="(max-width: 767px)" />
-          <source src="/videos/hero.mp4" type="video/mp4" />
-        </video>
+        ></video>
         <div class="hero__overlay">
           <p class="hero__scroll-hint">tap</p>
         </div>
@@ -177,7 +176,9 @@
                 <h1>2025</h1>
                 <h2>ボカコレ 2025 夏 参加</h2>
                 <p>ボカロコレクション（通称ボカコレ）に参加しました。<br>
-                  私は<b>3DCG</b>を担当し、MVで使われているCG素材を作成しました。<br>
+                  <br>
+                  私は<b>3DCG</b>部分を担当し、<br>
+                  MVで使われているCG素材を作成しました。<br>
                   
                   <!-- 参加したメンバーは、全員C.A.Cのメンバーで、<br>
                   イラスト3人、音楽1人、映像1人、CG1人の、<br>
@@ -198,7 +199,8 @@
                 <h1>2025-Present</h1>
                 <h2>伊藤慎一郎研究室 配属</h2>
                 <p>私は現在、伊藤慎一郎研究室に所属しています。<br>
-                  伊藤研は<b>デザイン</b>や<b>デジタルファブリケーション</b>を<br>
+                  伊藤研は<b>デザイン</b>や、<br>
+                  <b>デジタルファブリケーション</b>を、<br>
                   キーワードとしており、<br>
                   <b>デザインの方法やプロセス、考え方</b>について学びました。<br>
                   <br>
@@ -343,7 +345,7 @@
             <p>私が主に利用してきた技術領域です。<br>
               <b>アイデアを形</b>にするための<b>3DCG</b>、<br>
               <b>アイデアを実現</b>するための<b>プログラミング</b>、<br>
-              それらを<b>物理に実現</b>するための<b>デジタルファブリケーション</b>、<br>
+              <b>物理に実現</b>するための<b>デジタルファブリケーション</b>、<br>
               <br>
               これらを1つだけ用いて作品を作ることも多くありますが、<br>
               いくつかを組み合わせたプロジェクトを制作することもあります。<br>
@@ -351,8 +353,8 @@
               特に、<b>Maker Faire Kyoto 2026</b>にて出展した、<br>
               <b>Emotional Monster Marker</b>は、<br>
               3つの領域を組み合わせた作品であり、<br>
-              もっとも私らしさが、学んできたことが表れた作品<br>
-              だと感じております。
+              もっとも私らしさが、学んできたことが、<br>
+              表れた作品だと感じております。
             </p>
 
           </div>
@@ -375,7 +377,7 @@
                 <div class="work-card__dots" data-dots></div>
               </div>
               <h3 class="work-card__title">Emotional Monster Maker</h3>
-              <p class="work-card__caption"><b>ユーザーの感情入力から Gemini API でモンスターのコンセプトを生成し、Tripo API で 3D 化、さらに 3Dプリンタで物理出力するインタラクティブ作品</b></p>
+              <h4 class="work-card__caption"><b>ユーザーの感情入力から Gemini API でモンスターのコンセプトを生成し、Tripo API で 3D 化、さらに 3Dプリンタで物理出力するインタラクティブ作品</b></h4>
               <p class="work-card__caption">Python / JavaScript / Gemini API / Tripo API / Octo Print / Blender / 3Dプリンタ / 研究室プロジェクト / Kyoto Micro Maker Faire 2026</p>
               <a href="https://ryuseikishi.vercel.app/works/emotional-monster-maker" target="_blank" rel="noopener noreferrer" class="work-card__detail">詳細はこちら</a>
             </article>
@@ -440,7 +442,7 @@
                 <div class="work-card__dots" data-dots></div>
               </div>
               <h3 class="work-card__title">K-step Getter</h3>
-              <p class="work-card__caption"><b>階段を登ってガチャを引くというコンセプトのモバイルアプリの、ガチャ演出映像</b></p>
+              <h4 class="work-card__caption"><b>階段を登ってガチャを引くというコンセプトのモバイルアプリの、ガチャ演出映像</b></p>
               <p class="work-card__caption">Blender / DaVinci Resolve / ガチャ演出 / チーム制作</p>
             </article>
 
@@ -490,7 +492,7 @@
                 <div class="work-card__dots" data-dots></div>
               </div>
               <h3 class="work-card__title">粉物マスター 鉄平ちゃん</h3>
-              <p class="work-card__caption"><b>どんなものでも粉物だと言い張るジョークアプリ</b></p>
+              <h4 class="work-card__caption"><b>どんなものでも粉物だと言い張るジョークアプリ</b></h4>
               <p class="work-card__caption">TypeScript / Python / Gemini API / チーム制作 / KC3HACK2025</p>
             </article>
 
@@ -504,7 +506,7 @@
                 <div class="work-card__dots" data-dots></div>
               </div>
               <h3 class="work-card__title">Project Bundler</h3>
-              <p class="work-card__caption"><b>使用されている外部テクスチャファイルをパッキングし、共有するためのBlenderアドオン</b></p>
+              <h4 class="work-card__caption"><b>使用されている外部テクスチャファイルをパッキングし、共有するためのBlenderアドオン</b></h4>
               <p class="work-card__caption">Python / Blender API / Addon / 個人制作</p>
             </article>
 
@@ -518,7 +520,7 @@
                 <div class="work-card__dots" data-dots></div>
               </div>
               <h3 class="work-card__title">一期一会</h3>
-              <p class="work-card__caption"><b>過去に写真を撮った同じ場所へ再び訪れ、同じ風景をカメラで捉えたときだけ、過去の自分が残したメッセージが閲覧できる思い出追体験アプリ。</b></p>
+              <h4 class="work-card__caption"><b>過去に写真を撮った同じ場所へ再び訪れ、同じ風景をカメラで捉えたときだけ、過去の自分が残したメッセージが閲覧できる思い出追体験アプリ</b></h4>
               <p class="work-card__caption">TypeScript / Gemini API / 個人制作</p>
             </article>
           </div>

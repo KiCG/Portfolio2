@@ -232,6 +232,14 @@ const heroSection = document.querySelector<HTMLElement>('[data-hero]');
 const heroVideo = document.querySelector<HTMLVideoElement>('[data-hero-video]');
 
 if (heroSection && heroVideo) {
+  const mobileSrc = heroVideo.dataset.srcMobile;
+  const desktopSrc = heroVideo.dataset.srcDesktop;
+  const useMobile = window.innerWidth < 768;
+  const src = useMobile ? mobileSrc : desktopSrc;
+  if (src) {
+    heroVideo.src = src;
+    heroVideo.load();
+  }
   initScrollVideo({ section: heroSection, video: heroVideo });
   initTapToPlay({ section: heroSection, video: heroVideo });
 }
