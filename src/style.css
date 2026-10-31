@@ -220,7 +220,7 @@ body.theme-dark .site-header__link:hover {
   position: relative;
   width: 100%;
   height: var(--hero-scroll-length);
-  background: #ff0000;
+  background: #ffffff;
 }
 
 .hero__sticky {
@@ -834,7 +834,7 @@ h1 {
     /* text-align: left; */
   }
   .about-middle {
-    padding: 40px 0;
+    padding: 10px 0;
     font-size: 1.4rem;
     text-align: left;
   }
