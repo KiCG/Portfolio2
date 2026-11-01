@@ -221,6 +221,7 @@ body.theme-dark .site-header__link:hover {
   width: 100%;
   height: var(--hero-scroll-length);
   background: #ffffff;
+  margin-bottom: -1px;
 }
 
 .hero__sticky {
@@ -752,6 +753,10 @@ h1 {
   line-height: 1.6;
   /* color: var(--fg-muted); */
   color: #000;
+}
+
+p.work-card__caption {
+  font-weight: 450;
 }
 
 h4.work-card__caption {
