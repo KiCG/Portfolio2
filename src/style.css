@@ -137,8 +137,8 @@ body.is-locked {
 .cube-bg canvas {
   display: block;
   outline: none;
-  /* width: 100%;
-  height: 100%; */
+  width: 100%;
+  height: 100%;
 }
 
 .placeholder {
@@ -314,7 +314,9 @@ body.theme-dark .site-header {
   position: sticky;
   top: 0;
   width: 100%;
-  height: 100svh;
+  /* svh だと iOS のツールバーが隠れたときに下に空白ができるため lvh を使う */
+  height: 100vh;
+  height: 100lvh;
   overflow: hidden;
   background: transparent;
   cursor: pointer;
@@ -347,7 +349,9 @@ body.theme-dark .site-header {
 
 .hero__overlay {
   position: absolute;
-  inset: 0;
+  /* ツールバー表示中でも TAP が隠れないよう、見えている高さ(svh)に合わせる */
+  inset: 0 0 auto 0;
+  height: 100svh;
   display: flex;
   align-items: flex-end;
   justify-content: center;
