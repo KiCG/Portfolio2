@@ -22,7 +22,23 @@
     <header class="site-header">
       <button type="button" class="site-header__home" data-nav-to="top">RYUSEI KISHI</button>
       <nav class="site-header__nav">
-        <button type="button" class="site-header__link" data-nav-to="about">About</button>
+        <button
+          type="button"
+          class="site-header__toggle"
+          data-nav-toggle
+          aria-label="Menu"
+          aria-expanded="false"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <ul class="site-header__menu" data-nav-menu>
+          <li><button type="button" class="site-header__link" data-nav-to="about">About</button></li>
+          <li><button type="button" class="site-header__link" data-nav-to="history">History</button></li>
+          <li><button type="button" class="site-header__link" data-nav-to="work">Work</button></li>
+          <li><button type="button" class="site-header__link" data-nav-to="contact">Contact</button></li>
+        </ul>
       </nav>
     </header>
     <section class="hero" data-hero>
@@ -38,6 +54,7 @@
           disablepictureinpicture
           disableremoteplayback
         ></video>
+        <div class="hero__canvas" data-hero-canvas></div>
         <div class="hero__overlay">
           <p class="hero__scroll-hint">tap</p>
         </div>

@@ -6,7 +6,19 @@ type Cube = {
   baseScale: number;
   rotationSpeed: number;
   riseSpeed: number;
+  // vx: number;
+  // vy: number;
 };
+
+function mulberry32(seed: number) {
+  let a = seed >>> 0;
+  return () => {
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
 
 export function mountCubeBackground(container: HTMLElement) {
   const isMobile = window.innerWidth < 768;
@@ -51,22 +63,43 @@ export function mountCubeBackground(container: HTMLElement) {
   resize();
   window.addEventListener('resize', resize);
 
+  const INIT_SEED = 42;
+  const INIT_Y_TOP_MARGIN = 1;
+  const INIT_Y_BOTTOM_MARGIN = -0.5;
+  const INIT_MAX_TRIES = 20;
+  const seededRand = mulberry32(INIT_SEED);
+  const projected = new THREE.Vector3();
+
   for (let i = 0; i < COUNT; i++) {
     const cubeMaterial = material.clone();
     const mesh = new THREE.Mesh(geometry, cubeMaterial);
-    mesh.position.x = (Math.random() - 0.5) * xRange;
-    mesh.position.y = (Math.random() - 0.5) * Y_RANGE;
-    mesh.position.z = (Math.random() - 0.5) * 8 - 2;
-    const scale = 0.5 + Math.random() * 1.2;
+
+    const px = (seededRand() - 0.5) * xRange;
+    const pz = (seededRand() - 0.5) * 8 - 2;
+    let py = (seededRand() - 0.5) * Y_RANGE;
+    for (let t = 0; t < INIT_MAX_TRIES; t++) {
+      projected.set(px, py, pz).project(camera);
+      if (projected.y < 1 - INIT_Y_TOP_MARGIN && projected.y > -1 + INIT_Y_BOTTOM_MARGIN) break;
+      py = (seededRand() - 0.5) * Y_RANGE;
+    }
+    mesh.position.set(px, py, pz);
+
+    const scale = 0.5 + seededRand() * 1.2;
     mesh.scale.setScalar(scale);
-    mesh.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+    mesh.rotation.set(
+      seededRand() * Math.PI,
+      seededRand() * Math.PI,
+      seededRand() * Math.PI,
+    );
     scene.add(mesh);
     cubes.push({
       mesh,
       material: cubeMaterial,
       baseScale: scale,
-      rotationSpeed: 0.002 + Math.random() * 0.004,
-      riseSpeed: 0.01 + Math.random() * 0.015,
+      rotationSpeed: 0.002 + seededRand() * 0.004,
+      riseSpeed: 0.01 + seededRand() * 0.015,
+      // vx: 0,
+      // vy: 0,
     });
   }
 
@@ -81,6 +114,27 @@ export function mountCubeBackground(container: HTMLElement) {
     lastScrollY = current;
   };
   window.addEventListener('scroll', onScroll, { passive: true });
+
+  // const MOUSE_COLLIDER_RADIUS = 0.2;
+  // const MOUSE_KICK_STRENGTH = 0.5;
+  // const VELOCITY_FRICTION = 0.94;
+  // const mouseNdc = new THREE.Vector2(10, 10);
+  // const rayOrigin = new THREE.Vector3();
+  // const rayFar = new THREE.Vector3();
+  // const rayDir = new THREE.Vector3();
+  // let prevMouseX = 0;
+  // let prevMouseY = 0;
+  // let hasPrevMouse = false;
+
+  // const onMouseMove = (e: MouseEvent) => {
+  //   mouseNdc.x = (e.clientX / window.innerWidth) * 2 - 1;
+  //   mouseNdc.y = -((e.clientY / window.innerHeight) * 2 - 1);
+  // };
+  // const onMouseLeave = () => {
+  //   mouseNdc.set(10, 10);
+  // };
+  // window.addEventListener('mousemove', onMouseMove, { passive: true });
+  // window.addEventListener('mouseleave', onMouseLeave);
 
   const topY = 20;
   const bottomY = -Y_RANGE / 2;
@@ -105,31 +159,69 @@ export function mountCubeBackground(container: HTMLElement) {
     const boost = scrollDelta * PARALLAX_FACTOR;
     scrollDelta *= SCROLL_DECAY;
 
-    // const scrollY = window.scrollY;
-    // let fadeRatio = 0;
-    // if (scrollY >= FADE_IN_END) {
-    //   fadeRatio = 1;
-    // } else if (scrollY > FADE_IN_START) {
-    //   fadeRatio = (scrollY - FADE_IN_START) / (FADE_IN_END - FADE_IN_START);
-    // }
+    // const mouseActive = Math.abs(mouseNdc.x) <= 1 && Math.abs(mouseNdc.y) <= 1;
+    // let mouseVx = 0;
+    // let mouseVy = 0;
+    // if (mouseActive) {
+    //   rayOrigin.set(mouseNdc.x, mouseNdc.y, -1).unproject(camera);
+    //   rayFar.set(mouseNdc.x, mouseNdc.y, 1).unproject(camera);
+    //   rayDir.subVectors(rayFar, rayOrigin).normalize();
 
-    // const canvasH = container.clientHeight;
+    //   if (Math.abs(rayDir.z) > 1e-6) {
+    //     const t0 = (0 - rayOrigin.z) / rayDir.z;
+    //     const curX = rayOrigin.x + t0 * rayDir.x;
+    //     const curY = rayOrigin.y + t0 * rayDir.y;
+    //     if (hasPrevMouse) {
+    //       mouseVx = curX - prevMouseX;
+    //       mouseVy = curY - prevMouseY;
+    //     }
+    //     prevMouseX = curX;
+    //     prevMouseY = curY;
+    //     hasPrevMouse = true;
+    //   }
+    // } else {
+    //   hasPrevMouse = false;
+    // }
 
     for (const c of cubes) {
       c.mesh.position.y += c.riseSpeed + boost;
       c.mesh.rotation.z += c.rotationSpeed;
 
-      // projected.copy(c.mesh.position).project(camera);
-      // const pixelY = (-projected.y * 0.5 + 0.5) * canvasH;
-      // const topFade = Math.max(0, Math.min(1, pixelY / TOP_FADE_RANGE_PX));
-      // c.material.opacity = BASE_OPACITY * fadeRatio;
+      // if (mouseActive && Math.abs(rayDir.z) > 1e-6) {
+      //   const t = (c.mesh.position.z - rayOrigin.z) / rayDir.z;
+      //   const hitX = rayOrigin.x + t * rayDir.x;
+      //   const hitY = rayOrigin.y + t * rayDir.y;
+      //   const dx = c.mesh.position.x - hitX;
+      //   const dy = c.mesh.position.y - hitY;
+      //   const combinedR = MOUSE_COLLIDER_RADIUS + c.baseScale * 0.5;
+      //   const d2 = dx * dx + dy * dy;
+      //   if (d2 < combinedR * combinedR) {
+      //     const d = Math.max(Math.sqrt(d2), 1e-4);
+      //     const overlap = combinedR - d;
+      //     const nx = dx / d;
+      //     const ny = dy / d;
+      //     c.mesh.position.x += nx * overlap;
+      //     c.mesh.position.y += ny * overlap;
+      //     c.vx += mouseVx * MOUSE_KICK_STRENGTH;
+      //     c.vy += mouseVy * MOUSE_KICK_STRENGTH;
+      //   }
+      // }
+
+      // c.mesh.position.x += c.vx;
+      // c.mesh.position.y += c.vy;
+      // c.vx *= VELOCITY_FRICTION;
+      // c.vy *= VELOCITY_FRICTION;
 
       if (c.mesh.position.y > topY) {
         c.mesh.position.y = bottomY;
         c.mesh.position.x = (Math.random() - 0.5) * xRange;
+        // c.vx = 0;
+        // c.vy = 0;
       } else if (c.mesh.position.y < bottomY) {
         c.mesh.position.y = topY;
         c.mesh.position.x = (Math.random() - 0.5) * xRange;
+        // c.vx = 0;
+        // c.vy = 0;
       }
     }
     renderer.render(scene, camera);
@@ -142,6 +234,8 @@ export function mountCubeBackground(container: HTMLElement) {
     window.removeEventListener('resize', resize);
     // window.removeEventListener('resize', updateScrollRange);
     window.removeEventListener('scroll', onScroll);
+    // window.removeEventListener('mousemove', onMouseMove);
+    // window.removeEventListener('mouseleave', onMouseLeave);
     renderer.dispose();
     geometry.dispose();
     material.dispose();

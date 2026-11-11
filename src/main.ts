@@ -1,5 +1,6 @@
 import './style.css';
 import { mountCubeBackground } from './cubeBackground';
+import { mountHeroVideoShader } from './heroVideoShader';
 // import { mountFlowingSphere } from './flowingSphere';
 
 if ('scrollRestoration' in history) {
@@ -242,6 +243,22 @@ if (heroSection && heroVideo) {
   }
   initScrollVideo({ section: heroSection, video: heroVideo });
   initTapToPlay({ section: heroSection, video: heroVideo });
+
+  const heroCanvas = document.querySelector<HTMLElement>('[data-hero-canvas]');
+  if (heroCanvas) {
+    mountHeroVideoShader({ container: heroCanvas, video: heroVideo, section: heroSection });
+
+    const updateHeroVisibility = () => {
+      const rect = heroSection.getBoundingClientRect();
+      const scrollable = heroSection.offsetHeight - window.innerHeight;
+      if (scrollable <= 0) return;
+      const progress = Math.min(1, Math.max(0, -rect.top / scrollable));
+      heroCanvas.hidden = progress >= 1;
+    };
+    window.addEventListener('scroll', updateHeroVisibility, { passive: true });
+    window.addEventListener('resize', updateHeroVisibility, { passive: true });
+    updateHeroVisibility();
+  }
 }
 
 initRevealOnScroll();
@@ -254,13 +271,46 @@ initRevealUpOnScroll();
 //   });
 // });
 
-const aboutNavButton = document.querySelector<HTMLButtonElement>('[data-nav-to="about"]');
-if (aboutNavButton && heroSection) {
-  aboutNavButton.addEventListener('click', () => {
-    const target = heroSection.offsetTop + heroSection.offsetHeight + 100;
-    window.scrollTo({ top: target, behavior: 'smooth' });
+const siteNav = document.querySelector<HTMLElement>('.site-header__nav');
+const navToggle = document.querySelector<HTMLButtonElement>('[data-nav-toggle]');
+
+const closeNavMenu = () => {
+  siteNav?.classList.remove('is-open');
+  navToggle?.setAttribute('aria-expanded', 'false');
+};
+const toggleNavMenu = () => {
+  if (!siteNav) return;
+  const nextOpen = !siteNav.classList.contains('is-open');
+  siteNav.classList.toggle('is-open', nextOpen);
+  navToggle?.setAttribute('aria-expanded', nextOpen ? 'true' : 'false');
+};
+
+navToggle?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  toggleNavMenu();
+});
+
+document.addEventListener('click', (e) => {
+  if (!siteNav || !siteNav.classList.contains('is-open')) return;
+  if (!siteNav.contains(e.target as Node)) closeNavMenu();
+});
+
+document.querySelectorAll<HTMLButtonElement>('[data-nav-to]').forEach((btn) => {
+  const key = btn.dataset.navTo;
+  if (!key) return;
+  btn.addEventListener('click', () => {
+    if (key === 'top') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      const target = document.querySelector<HTMLElement>(`.${key}`);
+      if (target) {
+        const y = target.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    }
+    closeNavMenu();
   });
-}
+});
 
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
@@ -342,13 +392,6 @@ if (aboutRight && aboutSticky) {
 const workRight = document.querySelector<HTMLParagraphElement>('.work-right p');
 if (workRight) {
   initTypewriter(workRight, 500, 25, 0.3);
-}
-
-const homeNavButton = document.querySelector<HTMLButtonElement>('[data-nav-to="top"]');
-if (homeNavButton) {
-  homeNavButton.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
 }
 
 const cursor = document.querySelector<HTMLElement>('.cursor');
