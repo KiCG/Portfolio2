@@ -55,12 +55,16 @@ export function mountCubeBackground(container: HTMLElement) {
   const resize = () => {
     const w = container.clientWidth;
     const h = container.clientHeight;
+    if (w === 0 || h === 0) return;
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
     computeXRange();
   };
   resize();
+  // 初回ロード時のサイズ誤測定を自動で補正するため、コンテナのサイズ変化を監視する
+  const resizeObserver = new ResizeObserver(resize);
+  resizeObserver.observe(container);
   window.addEventListener('resize', resize);
 
   const INIT_SEED = 42;
@@ -136,8 +140,11 @@ export function mountCubeBackground(container: HTMLElement) {
   // window.addEventListener('mousemove', onMouseMove, { passive: true });
   // window.addEventListener('mouseleave', onMouseLeave);
 
-  const topY = 20;
-  const bottomY = -Y_RANGE / 2;
+  // カメラから見えている範囲の外でリサイクルする（キューブの z ごとに可視高さが違うため個別に計算）
+  const visibleHalfHeightAt = (z: number) => {
+    const vFOV = (camera.fov * Math.PI) / 180;
+    return Math.tan(vFOV / 2) * (camera.position.z - z);
+  };
 
   // const heroSection = document.querySelector<HTMLElement>('.hero');
   // let FADE_IN_START = 0;
@@ -212,6 +219,9 @@ export function mountCubeBackground(container: HTMLElement) {
       // c.vx *= VELOCITY_FRICTION;
       // c.vy *= VELOCITY_FRICTION;
 
+      const margin = visibleHalfHeightAt(c.mesh.position.z) + c.baseScale;
+      const topY = Math.max(20, margin);
+      const bottomY = -margin;
       if (c.mesh.position.y > topY) {
         c.mesh.position.y = bottomY;
         c.mesh.position.x = (Math.random() - 0.5) * xRange;
@@ -231,6 +241,7 @@ export function mountCubeBackground(container: HTMLElement) {
 
   return () => {
     cancelAnimationFrame(rafId);
+    resizeObserver.disconnect();
     window.removeEventListener('resize', resize);
     // window.removeEventListener('resize', updateScrollRange);
     window.removeEventListener('scroll', onScroll);

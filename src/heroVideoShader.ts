@@ -124,10 +124,22 @@ export function mountHeroVideoShader({ container, video, section }: MountOptions
     }
   };
 
+  // 初回ロード時はレイアウト確定前にサイズを測ってしまうことがあるため、
+  // window の resize ではなくコンテナ自体のサイズ変化を監視する
   resize();
   updateVideoAspect();
+  const resizeObserver = new ResizeObserver(resize);
+  resizeObserver.observe(container);
   window.addEventListener('resize', resize);
   video.addEventListener('loadedmetadata', updateVideoAspect);
+
+  // 動画データが遅れて届いた場合でも最初のフレームを確実にテクスチャへ反映する
+  const onLoadedData = () => {
+    updateVideoAspect();
+    texture.needsUpdate = true;
+  };
+  video.addEventListener('loadeddata', onLoadedData);
+  video.addEventListener('seeked', onLoadedData);
 
   const MAX_INTENSITY = 1.6;
   const EASE_POWER = 1.6;
@@ -166,8 +178,11 @@ export function mountHeroVideoShader({ container, video, section }: MountOptions
 
   return () => {
     cancelAnimationFrame(rafId);
+    resizeObserver.disconnect();
     window.removeEventListener('resize', resize);
     window.removeEventListener('resize', updateTarget);
+    video.removeEventListener('loadeddata', onLoadedData);
+    video.removeEventListener('seeked', onLoadedData);
     window.removeEventListener('scroll', updateTarget);
     video.removeEventListener('loadedmetadata', updateVideoAspect);
     renderer.dispose();

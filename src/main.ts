@@ -238,8 +238,20 @@ if (heroSection && heroVideo) {
   const useMobile = window.innerWidth < 768;
   const src = useMobile ? mobileSrc : desktopSrc;
   if (src) {
-    heroVideo.src = src;
-    heroVideo.load();
+    // iOS Safari は preload="auto" を無視することが多く（特にモバイル回線）、
+    // 再生せずに currentTime だけ動かす使い方だと動画データが読み込まれないことがある。
+    // fetch で丸ごとダウンロードして Blob URL を渡すことで確実に読み込み、シークも滑らかにする。
+    const setSrc = (url: string) => {
+      heroVideo.src = url;
+      heroVideo.load();
+    };
+    fetch(src)
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.blob();
+      })
+      .then((blob) => setSrc(URL.createObjectURL(blob)))
+      .catch(() => setSrc(src));
   }
   initScrollVideo({ section: heroSection, video: heroVideo });
   initTapToPlay({ section: heroSection, video: heroVideo });
