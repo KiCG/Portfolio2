@@ -451,6 +451,36 @@ document.querySelectorAll<HTMLElement>('.work-card[data-href]').forEach((card) =
   });
 });
 
+// 作品動画は preload="none" にしてあり、画面内に入った「表示中のスライド」だけを再生する。
+// 画面外や非表示のスライドは一時停止するので、見ていない動画のダウンロード・デコードが発生しない。
+const lazyVideos = document.querySelectorAll<HTMLVideoElement>('video[data-lazy-video]');
+const visibleVideos = new Set<HTMLVideoElement>();
+
+const syncLazyVideo = (video: HTMLVideoElement) => {
+  const isSlide = video.classList.contains('work-card__slide');
+  const shouldPlay = visibleVideos.has(video) && (!isSlide || video.classList.contains('is-active'));
+  if (shouldPlay) {
+    if (video.paused) video.play().catch(() => {});
+  } else if (!video.paused) {
+    video.pause();
+  }
+};
+
+if (lazyVideos.length > 0) {
+  const videoObserver = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        const video = entry.target as HTMLVideoElement;
+        if (entry.isIntersecting) visibleVideos.add(video);
+        else visibleVideos.delete(video);
+        syncLazyVideo(video);
+      }
+    },
+    { rootMargin: '200px 0px' },
+  );
+  lazyVideos.forEach((video) => videoObserver.observe(video));
+}
+
 document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((card) => {
   const slides = Array.from(card.querySelectorAll<HTMLElement>('.work-card__slide'));
   if (slides.length <= 1) {
@@ -478,6 +508,9 @@ document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((card) => {
     slides[n].classList.add('is-active');
     dots[n].classList.add('is-active');
     index = n;
+    slides.forEach((slide) => {
+      if (slide instanceof HTMLVideoElement && slide.hasAttribute('data-lazy-video')) syncLazyVideo(slide);
+    });
   };
 
   card.querySelectorAll<HTMLButtonElement>('.work-card__nav').forEach((btn) => {
