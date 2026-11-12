@@ -6,6 +6,7 @@ type Cube = {
   baseScale: number;
   rotationSpeed: number;
   riseSpeed: number;
+  hasEntered: boolean;
   // vx: number;
   // vy: number;
 };
@@ -40,8 +41,7 @@ export function mountCubeBackground(container: HTMLElement) {
 
   const geometry = new THREE.BoxGeometry(1, 1, 1);
   const cubes: Cube[] = [];
-  const COUNT = isMobile ? 10 : 24;
-  const Y_RANGE = 20;
+  const COUNT = isMobile ? 10 : 18;
 
   let xRange = 24;
   const computeXRange = () => {
@@ -68,11 +68,9 @@ export function mountCubeBackground(container: HTMLElement) {
   window.addEventListener('resize', resize);
 
   const INIT_SEED = 42;
-  const INIT_Y_TOP_MARGIN = 1;
-  const INIT_Y_BOTTOM_MARGIN = -0.5;
-  const INIT_MAX_TRIES = 20;
+  const INIT_STAGGER = 3;
+  const INIT_BELOW_SCREEN_START = -40;
   const seededRand = mulberry32(INIT_SEED);
-  const projected = new THREE.Vector3();
 
   for (let i = 0; i < COUNT; i++) {
     const cubeMaterial = material.clone();
@@ -80,15 +78,11 @@ export function mountCubeBackground(container: HTMLElement) {
 
     const px = (seededRand() - 0.5) * xRange;
     const pz = (seededRand() - 0.5) * 8 - 2;
-    let py = (seededRand() - 0.5) * Y_RANGE;
-    for (let t = 0; t < INIT_MAX_TRIES; t++) {
-      projected.set(px, py, pz).project(camera);
-      if (projected.y < 1 - INIT_Y_TOP_MARGIN && projected.y > -1 + INIT_Y_BOTTOM_MARGIN) break;
-      py = (seededRand() - 0.5) * Y_RANGE;
-    }
+    // 画面外下に段をつけて配置し、riseSpeed で順に上がってくる演出にする
+    const py = INIT_BELOW_SCREEN_START - i * INIT_STAGGER - seededRand() * 2;
     mesh.position.set(px, py, pz);
 
-    const scale = 0.5 + seededRand() * 1.2;
+    const scale = isMobile ? 0.8 + seededRand() * 1.2 : 1.2 + seededRand() * 2.4;
     mesh.scale.setScalar(scale);
     mesh.rotation.set(
       seededRand() * Math.PI,
@@ -102,6 +96,7 @@ export function mountCubeBackground(container: HTMLElement) {
       baseScale: scale,
       rotationSpeed: 0.002 + seededRand() * 0.004,
       riseSpeed: 0.01 + seededRand() * 0.015,
+      hasEntered: false,
       // vx: 0,
       // vy: 0,
     });
@@ -217,21 +212,26 @@ export function mountCubeBackground(container: HTMLElement) {
       // c.mesh.position.x += c.vx;
       // c.mesh.position.y += c.vy;
       // c.vx *= VELOCITY_FRICTION;
-      // c.vy *= VELOCITY_FRICTION;
+      // c.vy *= VELOCITY_FRICTION;     
 
       const margin = visibleHalfHeightAt(c.mesh.position.z) + c.baseScale;
       const topY = Math.max(20, margin);
       const bottomY = -margin;
-      if (c.mesh.position.y > topY) {
-        c.mesh.position.y = bottomY;
-        c.mesh.position.x = (Math.random() - 0.5) * xRange;
-        // c.vx = 0;
-        // c.vy = 0;
-      } else if (c.mesh.position.y < bottomY) {
-        c.mesh.position.y = topY;
-        c.mesh.position.x = (Math.random() - 0.5) * xRange;
-        // c.vx = 0;
-        // c.vy = 0;
+      if (!c.hasEntered && c.mesh.position.y >= bottomY) {
+        c.hasEntered = true;
+      }
+      if (c.hasEntered) {
+        if (c.mesh.position.y > topY) {
+          c.mesh.position.y = bottomY;
+          c.mesh.position.x = (Math.random() - 0.5) * xRange;
+          // c.vx = 0;
+          // c.vy = 0;
+        } else if (c.mesh.position.y < bottomY) {
+          c.mesh.position.y = topY;
+          c.mesh.position.x = (Math.random() - 0.5) * xRange;
+          // c.vx = 0;
+          // c.vy = 0;
+        }
       }
     }
     renderer.render(scene, camera);
