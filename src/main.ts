@@ -22,11 +22,14 @@ if (window.innerWidth < 768) {
 const loader = document.querySelector<HTMLElement>('[data-loader]');
 if (loader) {
   const frameEl = loader.querySelector<HTMLImageElement>('[data-loader-frame]');
-  const frameModules = import.meta.glob<string>('./assets/loading/loading*.webp', {
-    eager: true,
-    query: '?url',
-    import: 'default',
-  });
+  const frameModules = import.meta.glob<string>(
+    './assets/loading/loading{01,03,05,07,09,11,13,15,17,19,21,23}.webp',
+    {
+      eager: true,
+      query: '?url',
+      import: 'default',
+    },
+  );
   const frameUrls = Object.keys(frameModules)
     .sort()
     .map((k) => frameModules[k]);
